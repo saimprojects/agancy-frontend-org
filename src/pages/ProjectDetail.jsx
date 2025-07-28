@@ -1,17 +1,27 @@
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
-import { ArrowLeft, ExternalLink, Calendar, Users, TrendingUp } from 'lucide-react';
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import {
+  ArrowLeft,
+  ExternalLink,
+  Calendar,
+  Users,
+  TrendingUp,
+} from "lucide-react";
 
-import { apiService } from '../lib/api';
+import { apiService } from "../lib/api";
 
 const ProjectDetail = () => {
   const { slug } = useParams();
 
-  const { data: project, isLoading, error } = useQuery({
-    queryKey: ['project', slug],
+  const {
+    data: project,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["project", slug],
     queryFn: () => apiService.getProject(slug),
-    select: (response) => response.data
+    select: (response) => response.data,
   });
 
   if (isLoading) {
@@ -29,8 +39,12 @@ const ProjectDetail = () => {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Project Not Found</h1>
-          <p className="text-muted-foreground mb-8">The project you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-4">
+            Project Not Found
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            The project you're looking for doesn't exist.
+          </p>
           <Link
             to="/projects"
             className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center space-x-2"
@@ -49,9 +63,19 @@ const ProjectDetail = () => {
       <div className="bg-muted/30 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
+            <Link
+              to="/"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Home
+            </Link>
             <span className="text-muted-foreground">/</span>
-            <Link to="/projects" className="text-muted-foreground hover:text-foreground">Projects</Link>
+            <Link
+              to="/projects"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Projects
+            </Link>
             <span className="text-muted-foreground">/</span>
             <span className="text-foreground">{project.title}</span>
           </nav>
@@ -73,16 +97,18 @@ const ProjectDetail = () => {
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Projects</span>
             </Link>
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
               <div>
                 <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                   {project.title}
                 </h1>
-                
+
                 <div className="flex items-center space-x-4 mb-6">
                   <span className="text-muted-foreground">Client:</span>
-                  <span className="font-semibold text-foreground">{project.client_name}</span>
+                  <span className="font-semibold text-foreground">
+                    {project.client_name}
+                  </span>
                   {project.project_url && (
                     <a
                       href={project.project_url}
@@ -94,35 +120,43 @@ const ProjectDetail = () => {
                     </a>
                   )}
                 </div>
-                
+
                 <p className="text-xl text-muted-foreground mb-8">
                   {project.short_description}
                 </p>
-                
+
                 {/* Project Stats */}
                 <div className="grid grid-cols-2 gap-6 mb-8">
                   {project.duration_months && (
                     <div className="flex items-center space-x-3">
                       <Calendar className="w-5 h-5 text-primary" />
                       <div>
-                        <div className="text-sm text-muted-foreground">Duration</div>
-                        <div className="font-semibold">{project.duration_months} months</div>
+                        <div className="text-sm text-muted-foreground">
+                          Duration
+                        </div>
+                        <div className="font-semibold">
+                          {project.duration_months} months
+                        </div>
                       </div>
                     </div>
                   )}
-                  
+
                   {project.team_size && (
                     <div className="flex items-center space-x-3">
                       <Users className="w-5 h-5 text-primary" />
                       <div>
-                        <div className="text-sm text-muted-foreground">Team Size</div>
-                        <div className="font-semibold">{project.team_size} members</div>
+                        <div className="text-sm text-muted-foreground">
+                          Team Size
+                        </div>
+                        <div className="font-semibold">
+                          {project.team_size} members
+                        </div>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
-              
+
               <div className="relative">
                 {project.featured_image ? (
                   <img
@@ -144,7 +178,9 @@ const ProjectDetail = () => {
       </section>
 
       {/* KPIs Section */}
-      {(project.before_traffic || project.before_conversion || project.before_revenue) && (
+      {(project.before_traffic ||
+        project.before_conversion ||
+        project.before_revenue) && (
         <section className="py-20 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -154,7 +190,9 @@ const ProjectDetail = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-foreground mb-4">Results Achieved</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Results Achieved
+              </h2>
               <p className="text-xl text-muted-foreground">
                 Here's how we helped {project.client_name} achieve their goals.
               </p>
@@ -170,20 +208,34 @@ const ProjectDetail = () => {
                   viewport={{ once: true }}
                 >
                   <TrendingUp className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Monthly Traffic</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Monthly Traffic
+                  </h3>
                   <div className="flex items-center justify-center space-x-4">
                     <div>
-                      <div className="text-sm text-muted-foreground">Before</div>
-                      <div className="text-xl font-bold">{project.before_traffic.toLocaleString()}</div>
+                      <div className="text-sm text-muted-foreground">
+                        Before
+                      </div>
+                      <div className="text-xl font-bold">
+                        {project.before_traffic.toLocaleString()}
+                      </div>
                     </div>
                     <div className="text-primary">→</div>
                     <div>
                       <div className="text-sm text-muted-foreground">After</div>
-                      <div className="text-xl font-bold text-primary">{project.after_traffic.toLocaleString()}</div>
+                      <div className="text-xl font-bold text-primary">
+                        {project.after_traffic.toLocaleString()}
+                      </div>
                     </div>
                   </div>
                   <div className="mt-2 text-sm text-green-600">
-                    +{Math.round(((project.after_traffic - project.before_traffic) / project.before_traffic) * 100)}% increase
+                    +
+                    {Math.round(
+                      ((project.after_traffic - project.before_traffic) /
+                        project.before_traffic) *
+                        100
+                    )}
+                    % increase
                   </div>
                 </motion.div>
               )}
@@ -197,20 +249,32 @@ const ProjectDetail = () => {
                   viewport={{ once: true }}
                 >
                   <TrendingUp className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Conversion Rate</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Conversion Rate
+                  </h3>
                   <div className="flex items-center justify-center space-x-4">
                     <div>
-                      <div className="text-sm text-muted-foreground">Before</div>
-                      <div className="text-xl font-bold">{project.before_conversion}%</div>
+                      <div className="text-sm text-muted-foreground">
+                        Before
+                      </div>
+                      <div className="text-xl font-bold">
+                        {project.before_conversion}%
+                      </div>
                     </div>
                     <div className="text-primary">→</div>
                     <div>
                       <div className="text-sm text-muted-foreground">After</div>
-                      <div className="text-xl font-bold text-primary">{project.after_conversion}%</div>
+                      <div className="text-xl font-bold text-primary">
+                        {project.after_conversion}%
+                      </div>
                     </div>
                   </div>
                   <div className="mt-2 text-sm text-green-600">
-                    +{(project.after_conversion - project.before_conversion).toFixed(1)}% improvement
+                    +
+                    {(
+                      project.after_conversion - project.before_conversion
+                    ).toFixed(1)}
+                    % improvement
                   </div>
                 </motion.div>
               )}
@@ -224,20 +288,34 @@ const ProjectDetail = () => {
                   viewport={{ once: true }}
                 >
                   <TrendingUp className="w-8 h-8 text-primary mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-foreground mb-2">Monthly Revenue</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">
+                    Monthly Revenue
+                  </h3>
                   <div className="flex items-center justify-center space-x-4">
                     <div>
-                      <div className="text-sm text-muted-foreground">Before</div>
-                      <div className="text-xl font-bold">${project.before_revenue.toLocaleString()}</div>
+                      <div className="text-sm text-muted-foreground">
+                        Before
+                      </div>
+                      <div className="text-xl font-bold">
+                        ${project.before_revenue.toLocaleString()}
+                      </div>
                     </div>
                     <div className="text-primary">→</div>
                     <div>
                       <div className="text-sm text-muted-foreground">After</div>
-                      <div className="text-xl font-bold text-primary">${project.after_revenue.toLocaleString()}</div>
+                      <div className="text-xl font-bold text-primary">
+                        ${project.after_revenue.toLocaleString()}
+                      </div>
                     </div>
                   </div>
                   <div className="mt-2 text-sm text-green-600">
-                    +{Math.round(((project.after_revenue - project.before_revenue) / project.before_revenue) * 100)}% increase
+                    +
+                    {Math.round(
+                      ((project.after_revenue - project.before_revenue) /
+                        project.before_revenue) *
+                        100
+                    )}
+                    % increase
                   </div>
                 </motion.div>
               )}
@@ -256,9 +334,11 @@ const ProjectDetail = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-foreground mb-8">Project Overview</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-8">
+              Project Overview
+            </h2>
             <div className="prose prose-lg max-w-none text-muted-foreground">
-              <p>{project.description}</p>
+              <p dangerouslySetInnerHTML={{ __html: project.description }}></p>
             </div>
           </motion.div>
         </div>
@@ -275,7 +355,9 @@ const ProjectDetail = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold text-foreground mb-4">Project Gallery</h2>
+              <h2 className="text-3xl font-bold text-foreground mb-4">
+                Project Gallery
+              </h2>
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -330,4 +412,3 @@ const ProjectDetail = () => {
 };
 
 export default ProjectDetail;
-

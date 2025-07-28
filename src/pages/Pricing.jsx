@@ -1,19 +1,19 @@
-import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
-import { Check, Star, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { apiService } from '../lib/api';
-import { formatCurrency } from '../lib/utils';
+import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { Check, Star, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { apiService } from "../lib/api";
+import { formatCurrency } from "../lib/utils";
 
 const Pricing = () => {
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['packages'],
+    queryKey: ["packages"],
     queryFn: () => apiService.getPackages(),
     select: (response) => {
       const results = response?.data?.results;
       console.log("API Response:", results);
       return Array.isArray(results) ? results : [];
-    }
+    },
   });
 
   if (isLoading) {
@@ -31,16 +31,20 @@ const Pricing = () => {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center text-destructive">
-          <p className="text-xl font-semibold">Failed to load pricing packages</p>
-          <p className="text-muted-foreground mt-2">{error?.message || 'Something went wrong.'}</p>
+          <p className="text-xl font-semibold">
+            Failed to load pricing packages
+          </p>
+          <p className="text-muted-foreground mt-2">
+            {error?.message || "Something went wrong."}
+          </p>
         </div>
       </div>
     );
   }
 
-  const packagesWithDefaults = (data || []).map(pkg => ({
+  const packagesWithDefaults = (data || []).map((pkg) => ({
     ...pkg,
-    features: Array.isArray(pkg.features) ? pkg.features : []
+    features: Array.isArray(pkg.features) ? pkg.features : [],
   }));
 
   return (
@@ -62,8 +66,8 @@ const Pricing = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Choose the perfect plan for your business needs. All plans include our core features
-            with no hidden fees or surprises.
+            Choose the perfect plan for your business needs. All plans include
+            our core features with no hidden fees or surprises.
           </motion.p>
         </div>
       </section>
@@ -77,8 +81,8 @@ const Pricing = () => {
                 key={pkg.id}
                 className={`relative bg-card border rounded-lg p-8 ${
                   pkg.is_popular
-                    ? 'border-primary shadow-lg scale-105'
-                    : 'border-border hover:shadow-lg'
+                    ? "border-primary shadow-lg scale-105"
+                    : "border-border hover:shadow-lg"
                 } transition-all duration-300`}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -93,14 +97,21 @@ const Pricing = () => {
                   </div>
                 )}
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-foreground mb-2">{pkg.name}</h3>
-                  <p className="text-muted-foreground mb-6">{pkg.description}</p>
+                  <h3 className="text-2xl font-bold text-foreground mb-2">
+                    {pkg.name}
+                  </h3>
+                  <p
+                    className="text-muted-foreground mb-6"
+                    dangerouslySetInnerHTML={{ __html: pkg.description }}
+                  ></p>
 
                   <div className="mb-6">
                     <span className="text-4xl font-bold text-foreground">
                       {formatCurrency(pkg.price)}
                     </span>
-                    <span className="text-muted-foreground">/{pkg.billing_period}</span>
+                    <span className="text-muted-foreground">
+                      /{pkg.billing_period}
+                    </span>
                   </div>
                 </div>
 
@@ -108,13 +119,18 @@ const Pricing = () => {
                 <div className="space-y-4 mb-8">
                   {pkg.features.length > 0 ? (
                     pkg.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start space-x-3">
+                      <div
+                        key={featureIndex}
+                        className="flex items-start space-x-3"
+                      >
                         <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                         <span className="text-muted-foreground">{feature}</span>
                       </div>
                     ))
                   ) : (
-                    <p className="text-muted-foreground">No features available</p>
+                    <p className="text-muted-foreground">
+                      No features available
+                    </p>
                   )}
                 </div>
 
@@ -123,8 +139,8 @@ const Pricing = () => {
                   to="/contact"
                   className={`w-full py-3 px-6 rounded-lg font-semibold text-center transition-colors block ${
                     pkg.is_popular
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      : 'bg-muted text-foreground hover:bg-accent'
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-muted text-foreground hover:bg-accent"
                   }`}
                 >
                   Get Started
@@ -134,7 +150,9 @@ const Pricing = () => {
           </div>
           {packagesWithDefaults.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-muted-foreground text-lg">Pricing information will be available soon.</p>
+              <p className="text-muted-foreground text-lg">
+                Pricing information will be available soon.
+              </p>
             </div>
           )}
         </div>
@@ -150,7 +168,9 @@ const Pricing = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-foreground mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Frequently Asked Questions
+            </h2>
             <p className="text-xl text-muted-foreground">
               Have questions about our pricing? We've got answers.
             </p>
@@ -186,7 +206,9 @@ const Pricing = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-lg font-semibold text-foreground mb-3">{faq.question}</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-3">
+                  {faq.question}
+                </h3>
                 <p className="text-muted-foreground">{faq.answer}</p>
               </motion.div>
             ))}

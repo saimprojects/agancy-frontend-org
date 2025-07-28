@@ -1,23 +1,28 @@
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
-import { ArrowLeft, MapPin, Clock, DollarSign, Send } from 'lucide-react';
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, MapPin, Clock, DollarSign, Send } from "lucide-react";
 
-import { apiService } from '../lib/api';
+import { apiService } from "../lib/api";
 
 const JobDetail = () => {
   const { slug } = useParams();
 
-  const { data: job, isLoading, error } = useQuery({
-    queryKey: ['job', slug],
+  const {
+    data: job,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["job", slug],
     queryFn: () => apiService.getJob(slug),
-    select: (response) => response.data
+    select: (response) => response.data,
   });
 
   const parseToArray = (data, fallback) => {
     if (!data) return fallback;
     if (Array.isArray(data)) return data;
-    if (typeof data === 'string') return data.split(',').map(item => item.trim());
+    if (typeof data === "string")
+      return data.split(",").map((item) => item.trim());
     return fallback;
   };
 
@@ -36,8 +41,12 @@ const JobDetail = () => {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Job Not Found</h1>
-          <p className="text-muted-foreground mb-8">The job you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-4">
+            Job Not Found
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            The job you're looking for doesn't exist.
+          </p>
           <Link
             to="/careers"
             className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center space-x-2"
@@ -51,24 +60,24 @@ const JobDetail = () => {
   }
 
   const responsibilities = parseToArray(job.responsibilities, [
-    'Collaborate with cross-functional teams to deliver high-quality solutions',
-    'Participate in code reviews and maintain coding standards',
-    'Contribute to technical documentation and knowledge sharing',
-    'Stay updated with industry trends and best practices'
+    "Collaborate with cross-functional teams to deliver high-quality solutions",
+    "Participate in code reviews and maintain coding standards",
+    "Contribute to technical documentation and knowledge sharing",
+    "Stay updated with industry trends and best practices",
   ]);
 
   const requirements = parseToArray(job.requirements, [
-    'Bachelor\'s degree in relevant field or equivalent experience',
-    'Strong problem-solving and analytical skills',
-    'Excellent communication and teamwork abilities',
-    'Passion for learning and professional growth'
+    "Bachelor's degree in relevant field or equivalent experience",
+    "Strong problem-solving and analytical skills",
+    "Excellent communication and teamwork abilities",
+    "Passion for learning and professional growth",
   ]);
 
   const niceToHave = parseToArray(job.nice_to_have, [
-    'Experience with modern development tools and frameworks',
-    'Previous experience in a similar role',
-    'Contributions to open source projects',
-    'Industry certifications'
+    "Experience with modern development tools and frameworks",
+    "Previous experience in a similar role",
+    "Contributions to open source projects",
+    "Industry certifications",
   ]);
 
   return (
@@ -77,9 +86,19 @@ const JobDetail = () => {
       <div className="bg-muted/30 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
+            <Link
+              to="/"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Home
+            </Link>
             <span className="text-muted-foreground">/</span>
-            <Link to="/careers" className="text-muted-foreground hover:text-foreground">Careers</Link>
+            <Link
+              to="/careers"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Careers
+            </Link>
             <span className="text-muted-foreground">/</span>
             <span className="text-foreground">{job.title}</span>
           </nav>
@@ -107,7 +126,7 @@ const JobDetail = () => {
                 <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                   {job.title}
                 </h1>
-                
+
                 <div className="flex flex-wrap items-center gap-6 text-muted-foreground mb-8">
                   <div className="flex items-center space-x-2">
                     <MapPin className="w-5 h-5" />
@@ -115,7 +134,11 @@ const JobDetail = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Clock className="w-5 h-5" />
-                    <span>{job.job_type.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                    <span>
+                      {job.job_type
+                        .replace("_", " ")
+                        .replace(/\b\w/g, (l) => l.toUpperCase())}
+                    </span>
                   </div>
                   {job.salary_range && (
                     <div className="flex items-center space-x-2">
@@ -126,14 +149,19 @@ const JobDetail = () => {
                 </div>
 
                 <div className="prose prose-lg max-w-none text-muted-foreground">
-                  <p className="text-xl mb-8">{job.description}</p>
+                  <p
+                    className="text-xl mb-8"
+                    dangerouslySetInnerHTML={{ __html: job.description }}
+                  ></p>
                 </div>
               </div>
 
               {/* Apply Card */}
               <div className="lg:col-span-1">
                 <div className="bg-card border border-border rounded-lg p-6 sticky top-24">
-                  <h3 className="text-xl font-semibold text-foreground mb-4">Ready to Apply?</h3>
+                  <h3 className="text-xl font-semibold text-foreground mb-4">
+                    Ready to Apply?
+                  </h3>
                   <p className="text-muted-foreground mb-6">
                     Join our team and help us build amazing digital experiences.
                   </p>
@@ -167,7 +195,9 @@ const JobDetail = () => {
               >
                 {/* Responsibilities */}
                 <div className="mb-12">
-                  <h2 className="text-2xl font-bold text-foreground mb-6">Responsibilities</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                    Responsibilities
+                  </h2>
                   <div className="prose prose-lg max-w-none text-muted-foreground">
                     <ul className="space-y-2">
                       {responsibilities.map((responsibility, index) => (
@@ -179,7 +209,9 @@ const JobDetail = () => {
 
                 {/* Requirements */}
                 <div className="mb-12">
-                  <h2 className="text-2xl font-bold text-foreground mb-6">Requirements</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                    Requirements
+                  </h2>
                   <div className="prose prose-lg max-w-none text-muted-foreground">
                     <ul className="space-y-2">
                       {requirements.map((requirement, index) => (
@@ -191,7 +223,9 @@ const JobDetail = () => {
 
                 {/* Nice to Have */}
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground mb-6">Nice to Have</h2>
+                  <h2 className="text-2xl font-bold text-foreground mb-6">
+                    Nice to Have
+                  </h2>
                   <div className="prose prose-lg max-w-none text-muted-foreground">
                     <ul className="space-y-2">
                       {niceToHave.map((item, index) => (
@@ -212,23 +246,32 @@ const JobDetail = () => {
                 transition={{ duration: 0.6 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-xl font-semibold text-foreground mb-4">About Saim Enterprises</h3>
+                <h3 className="text-xl font-semibold text-foreground mb-4">
+                  About Saim Enterprises
+                </h3>
                 <p className="text-muted-foreground mb-6">
-                  We're a passionate team of digital innovators dedicated to helping businesses 
-                  thrive in the digital age. Join us in creating exceptional digital experiences.
+                  We're a passionate team of digital innovators dedicated to
+                  helping businesses thrive in the digital age. Join us in
+                  creating exceptional digital experiences.
                 </p>
-                
+
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Company Size</h4>
+                    <h4 className="font-semibold text-foreground mb-2">
+                      Company Size
+                    </h4>
                     <p className="text-muted-foreground">25+ employees</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Industry</h4>
+                    <h4 className="font-semibold text-foreground mb-2">
+                      Industry
+                    </h4>
                     <p className="text-muted-foreground">Digital Agency</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-foreground mb-2">Founded</h4>
+                    <h4 className="font-semibold text-foreground mb-2">
+                      Founded
+                    </h4>
                     <p className="text-muted-foreground">2016</p>
                   </div>
                 </div>
@@ -251,7 +294,8 @@ const JobDetail = () => {
               Ready to Join Our Team?
             </h2>
             <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Take the next step in your career and help us build the future of digital innovation.
+              Take the next step in your career and help us build the future of
+              digital innovation.
             </p>
             <Link
               to="/contact"
