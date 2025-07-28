@@ -33,7 +33,6 @@ import FAQ from './pages/FAQ';
 // import AdminInvoices from './pages/admin/AdminInvoices';
 
 import './App.css';
-import { Analytics } from '@vercel/analytics/react';
 
 // Create a client
 const queryClient = new QueryClient({
@@ -75,7 +74,6 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-            <Analytics />
         <div className="App min-h-screen bg-background text-foreground">
           <ScrollToTop />
           <Navbar />
