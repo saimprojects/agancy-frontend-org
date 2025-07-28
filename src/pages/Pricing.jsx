@@ -6,12 +6,13 @@ import { apiService } from '../lib/api';
 import { formatCurrency } from '../lib/utils';
 
 const Pricing = () => {
-  const { data: packages, isLoading } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ['packages'],
     queryFn: () => apiService.getPackages(),
     select: (response) => {
-      console.log("API Response:", response.data.results);
-      return response.data.results || [];
+      const results = response?.data?.results;
+      console.log("API Response:", results);
+      return Array.isArray(results) ? results : [];
     }
   });
 
@@ -26,9 +27,20 @@ const Pricing = () => {
     );
   }
 
-  const packagesWithDefaults = packages.map(pkg => ({
+  if (isError) {
+    return (
+      <div className="min-h-screen pt-20 flex items-center justify-center">
+        <div className="text-center text-destructive">
+          <p className="text-xl font-semibold">Failed to load pricing packages</p>
+          <p className="text-muted-foreground mt-2">{error?.message || 'Something went wrong.'}</p>
+        </div>
+      </div>
+    );
+  }
+
+  const packagesWithDefaults = (data || []).map(pkg => ({
     ...pkg,
-    features: pkg.features || [] // Ensure features is an array
+    features: Array.isArray(pkg.features) ? pkg.features : []
   }));
 
   return (
@@ -91,9 +103,10 @@ const Pricing = () => {
                     <span className="text-muted-foreground">/{pkg.billing_period}</span>
                   </div>
                 </div>
+
                 {/* Features */}
                 <div className="space-y-4 mb-8">
-                  {Array.isArray(pkg.features) && pkg.features.length > 0 ? (
+                  {pkg.features.length > 0 ? (
                     pkg.features.map((feature, featureIndex) => (
                       <div key={featureIndex} className="flex items-start space-x-3">
                         <Check className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -101,9 +114,10 @@ const Pricing = () => {
                       </div>
                     ))
                   ) : (
-                    <p>No features available</p>
+                    <p className="text-muted-foreground">No features available</p>
                   )}
                 </div>
+
                 {/* CTA Button */}
                 <Link
                   to="/contact"
@@ -145,20 +159,24 @@ const Pricing = () => {
             {[
               {
                 question: "Can I change my plan later?",
-                answer: "Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle."
+                answer:
+                  "Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.",
               },
               {
                 question: "Do you offer custom packages?",
-                answer: "Absolutely! We understand that every business is unique. Contact us to discuss a custom package tailored to your specific needs."
+                answer:
+                  "Absolutely! We understand that every business is unique. Contact us to discuss a custom package tailored to your specific needs.",
               },
               {
                 question: "What's included in ongoing support?",
-                answer: "All plans include email support, regular updates, and basic maintenance. Higher-tier plans include priority support and phone consultations."
+                answer:
+                  "All plans include email support, regular updates, and basic maintenance. Higher-tier plans include priority support and phone consultations.",
               },
               {
                 question: "Is there a money-back guarantee?",
-                answer: "Yes, we offer a 30-day money-back guarantee. If you're not satisfied with our service, we'll refund your payment."
-              }
+                answer:
+                  "Yes, we offer a 30-day money-back guarantee. If you're not satisfied with our service, we'll refund your payment.",
+              },
             ].map((faq, index) => (
               <motion.div
                 key={index}

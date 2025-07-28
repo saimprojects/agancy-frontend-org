@@ -1,17 +1,21 @@
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
-import { ArrowLeft, CheckCircle, ArrowRight } from 'lucide-react';
+import { useParams, Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, CheckCircle, ArrowRight } from "lucide-react";
 
-import { apiService } from '../lib/api';
+import { apiService } from "../lib/api";
 
 const ServiceDetail = () => {
   const { slug } = useParams();
 
-  const { data: service, isLoading, error } = useQuery({
-    queryKey: ['service', slug],
+  const {
+    data: service,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["service", slug],
     queryFn: () => apiService.getService(slug),
-    select: (response) => response.data
+    select: (response) => response.data,
   });
 
   if (isLoading) {
@@ -29,8 +33,12 @@ const ServiceDetail = () => {
     return (
       <div className="min-h-screen pt-20 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-4">Service Not Found</h1>
-          <p className="text-muted-foreground mb-8">The service you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-4">
+            Service Not Found
+          </h1>
+          <p className="text-muted-foreground mb-8">
+            The service you're looking for doesn't exist.
+          </p>
           <Link
             to="/services"
             className="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center space-x-2"
@@ -49,9 +57,19 @@ const ServiceDetail = () => {
       <div className="bg-muted/30 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-muted-foreground hover:text-foreground">Home</Link>
+            <Link
+              to="/"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Home
+            </Link>
             <span className="text-muted-foreground">/</span>
-            <Link to="/services" className="text-muted-foreground hover:text-foreground">Services</Link>
+            <Link
+              to="/services"
+              className="text-muted-foreground hover:text-foreground"
+            >
+              Services
+            </Link>
             <span className="text-muted-foreground">/</span>
             <span className="text-foreground">{service.title}</span>
           </nav>
@@ -74,24 +92,26 @@ const ServiceDetail = () => {
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Services</span>
               </Link>
-              
+
               <h1 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
                 {service.title}
               </h1>
-              
+
               <p className="text-xl text-muted-foreground mb-8">
                 {service.short_description}
               </p>
-              
+
               {service.price_starting_from && (
                 <div className="mb-8">
-                  <span className="text-sm text-muted-foreground">Starting from</span>
+                  <span className="text-sm text-muted-foreground">
+                    Starting from
+                  </span>
                   <div className="text-3xl font-bold text-primary">
                     ${service.price_starting_from}
                   </div>
                 </div>
               )}
-              
+
               <Link
                 to="/contact"
                 className="bg-primary text-primary-foreground px-8 py-4 rounded-lg text-lg font-semibold hover:bg-primary/90 transition-colors inline-flex items-center space-x-2"
@@ -100,7 +120,7 @@ const ServiceDetail = () => {
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
-            
+
             <motion.div
               className="relative"
               initial={{ opacity: 0, x: 50 }}
@@ -135,10 +155,13 @@ const ServiceDetail = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-foreground mb-8">Service Overview</h2>
-            <div className="prose prose-lg max-w-none text-muted-foreground">
-              <p>{service.description}</p>
-            </div>
+            <h2 className="text-3xl font-bold text-foreground mb-8">
+              Service Overview
+            </h2>
+            <div
+              className="prose prose-lg max-w-none text-muted-foreground"
+              dangerouslySetInnerHTML={{ __html: service.description }}
+            />
           </motion.div>
         </div>
       </section>
@@ -153,20 +176,23 @@ const ServiceDetail = () => {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-foreground mb-4">What's Included</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              What's Included
+            </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Our {service.title.toLowerCase()} service includes everything you need to succeed.
+              Our {service.title.toLowerCase()} service includes everything you
+              need to succeed.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              'Professional Design',
-              'Responsive Development',
-              'SEO Optimization',
-              'Performance Optimization',
-              'Quality Assurance',
-              'Ongoing Support'
+              "Professional Design",
+              "Responsive Development",
+              "SEO Optimization",
+              "Performance Optimization",
+              "Quality Assurance",
+              "Ongoing Support",
             ].map((feature, index) => (
               <motion.div
                 key={feature}
@@ -178,9 +204,12 @@ const ServiceDetail = () => {
               >
                 <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h3 className="font-semibold text-foreground mb-2">{feature}</h3>
+                  <h3 className="font-semibold text-foreground mb-2">
+                    {feature}
+                  </h3>
                   <p className="text-muted-foreground">
-                    High-quality {feature.toLowerCase()} tailored to your specific needs and requirements.
+                    High-quality {feature.toLowerCase()} tailored to your
+                    specific needs and requirements.
                   </p>
                 </div>
               </motion.div>
@@ -202,7 +231,8 @@ const ServiceDetail = () => {
               Ready to Get Started?
             </h2>
             <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-              Let's discuss your project and see how our {service.title.toLowerCase()} can help you achieve your goals.
+              Let's discuss your project and see how our{" "}
+              {service.title.toLowerCase()} can help you achieve your goals.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -227,4 +257,3 @@ const ServiceDetail = () => {
 };
 
 export default ServiceDetail;
-
