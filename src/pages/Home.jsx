@@ -208,7 +208,10 @@ const Home = () => {
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               We offer comprehensive digital solutions to help your business
-              thrive in the digital age.
+              thrive in the digital age. From custom websites to powerful
+              marketing tools, we provide everything you need to grow online.
+              Our team ensures your brand stands out with modern design and
+              strategic digital planning.
             </p>
           </motion.div>
 
