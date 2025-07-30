@@ -117,48 +117,47 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-<section
-  ref={heroRef}
-  className="relative min-h-screen flex items-center justify-center overflow-hidden"
->
-  {/* Background 3D Scene */}
-  <div className="absolute inset-0 z-0">
-    <Hero3D />
-  </div>
-
-  {/* Gradient Overlay */}
-  <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/60 to-transparent z-10" />
-
-  {/* Hero Content */}
-  <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
-      Welcome to <span className="text-blue-600">Grow Peak Digital Agancy</span>
-    </h1>
-
-    <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-      Your Digital Success Partner. We help businesses grow with cutting-edge
-      digital solutions, innovative web development, and strategic marketing.
-    </p>
-
-    <div className="flex flex-wrap items-center justify-center gap-4">
-      <Link
-        to="/contact"
-        className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-semibold shadow-lg hover:bg-blue-700 transition-colors duration-300"
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
-        Get Started
-      </Link>
-      <Link
-        to="/projects"
-        className="bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-lg text-base md:text-lg font-semibold shadow-lg hover:bg-gray-100 transition-colors duration-300"
-      >
-        View Our Work
-      </Link>
-    </div>
-  </div>
-</section>
+        {/* Background 3D Scene */}
+        <div className="absolute inset-0 z-0">
+          <Hero3D />
+        </div>
 
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background/80 via-background/60 to-transparent z-10" />
 
+        {/* Hero Content */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-gray-900">
+            Welcome to{" "}
+            <span className="text-blue-600">Grow Peak Digital Agancy</span>
+          </h1>
 
+          <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Your Digital Success Partner. We help businesses grow with
+            cutting-edge digital solutions, innovative web development, and
+            strategic marketing.
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg text-base md:text-lg font-semibold shadow-lg hover:bg-blue-700 transition-colors duration-300"
+            >
+              Get Started
+            </Link>
+            <Link
+              to="/projects"
+              className="bg-white text-blue-600 border border-blue-600 px-6 py-3 rounded-lg text-base md:text-lg font-semibold shadow-lg hover:bg-gray-100 transition-colors duration-300"
+            >
+              View Our Work
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* Stats Section */}
       <section ref={statsRef} className="py-20 bg-muted/30">

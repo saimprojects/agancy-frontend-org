@@ -1,7 +1,12 @@
-import { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Float } from '@react-three/drei';
-import * as THREE from 'three';
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import {
+  OrbitControls,
+  Sphere,
+  MeshDistortMaterial,
+  Float,
+} from "@react-three/drei";
+import * as THREE from "three";
 
 const AnimatedSphere = ({ position, color, speed = 1 }) => {
   const meshRef = useRef();
@@ -36,16 +41,16 @@ const AnimatedSphere = ({ position, color, speed = 1 }) => {
 
 const ParticleField = () => {
   const points = useRef();
-  
+
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(1000 * 3);
-    
+
     for (let i = 0; i < 1000; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 20;
       positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
       positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
     }
-    
+
     return positions;
   }, []);
 
@@ -84,15 +89,15 @@ const Scene = () => {
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <pointLight position={[-10, -10, -10]} color="#3B82F6" intensity={0.5} />
-      
+
       {/* Particle Field */}
       <ParticleField />
-      
+
       {/* Animated Spheres */}
       <AnimatedSphere position={[0, 0, 0]} color="#3B82F6" speed={1} />
       <AnimatedSphere position={[3, 2, -2]} color="#1E40AF" speed={0.8} />
       <AnimatedSphere position={[-3, -1, 1]} color="#60A5FA" speed={1.2} />
-      
+
       {/* Controls */}
       <OrbitControls
         enableZoom={false}
@@ -107,12 +112,12 @@ const Scene = () => {
   );
 };
 
-const Hero3D = ({ className = '' }) => {
+const Hero3D = ({ className = "" }) => {
   return (
     <div className={`w-full h-full ${className}`}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 75 }}
-        style={{ background: 'transparent' }}
+        style={{ background: "transparent" }}
         dpr={[1, 2]}
         performance={{ min: 0.5 }}
       >
@@ -123,4 +128,3 @@ const Hero3D = ({ className = '' }) => {
 };
 
 export default Hero3D;
-

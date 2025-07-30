@@ -1,41 +1,50 @@
-import { Link } from 'react-router-dom';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, Youtube } from 'lucide-react';
+import { Link } from "react-router-dom";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     Services: [
-      { name: 'Web Development', href: '/services/web-development' },
-      { name: 'Mobile Apps', href: '/services/mobile-apps' },
-      { name: 'Digital Marketing', href: '/services/digital-marketing' },
-      { name: 'UI/UX Design', href: '/services/ui-ux-design' },
+      { name: "Web Development", href: "/services/web-development" },
+      { name: "Mobile Apps", href: "/services/mobile-apps" },
+      { name: "Digital Marketing", href: "/services/digital-marketing" },
+      { name: "UI/UX Design", href: "/services/ui-ux-design" },
     ],
     Company: [
-      { name: 'About Us', href: '/about' },
-      { name: 'Our Team', href: '/about#team' },
-      { name: 'Careers', href: '/careers' },
-      { name: 'Contact', href: '/contact' },
+      { name: "About Us", href: "/about" },
+      { name: "Our Team", href: "/about#team" },
+      { name: "Careers", href: "/careers" },
+      { name: "Contact", href: "/contact" },
     ],
     Resources: [
-      { name: 'Blog', href: '/blog' },
-      { name: 'Case Studies', href: '/projects' },
-      { name: 'FAQ', href: '/faq' },
-      { name: 'Pricing', href: '/pricing' },
+      { name: "Blog", href: "/blog" },
+      { name: "Case Studies", href: "/projects" },
+      { name: "FAQ", href: "/faq" },
+      { name: "Pricing", href: "/pricing" },
     ],
     Legal: [
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cookie Policy', href: '/cookies' },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
+      { name: "Cookie Policy", href: "/cookies" },
     ],
   };
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: '#' },
-    { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'LinkedIn', icon: Linkedin, href: '#' },
-    { name: 'Instagram', icon: Instagram, href: '#' },
-    { name: 'YouTube', icon: Youtube, href: '#' },
+    { name: "Facebook", icon: Facebook, href: "#" },
+    { name: "Twitter", icon: Twitter, href: "#" },
+    { name: "LinkedIn", icon: Linkedin, href: "#" },
+    { name: "Instagram", icon: Instagram, href: "#" },
+    { name: "YouTube", icon: Youtube, href: "#" },
   ];
 
   return (
@@ -48,16 +57,19 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <Link to="/" className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-lg">G</span>
+                  <span className="text-primary-foreground font-bold text-lg">
+                    G
+                  </span>
                 </div>
                 <span className="text-xl font-bold text-foreground">
                   Grow Peak
                 </span>
               </Link>
-              
+
               <p className="text-muted-foreground mb-6 max-w-md">
-                Your trusted digital partner for innovative web solutions, mobile apps, 
-                and digital marketing strategies that drive business growth.
+                Your trusted digital partner for innovative web solutions,
+                mobile apps, and digital marketing strategies that drive
+                business growth.
               </p>
 
               {/* Contact Info */}
@@ -80,7 +92,9 @@ const Footer = () => {
             {/* Footer Links */}
             {Object.entries(footerLinks).map(([category, links]) => (
               <div key={category}>
-                <h3 className="font-semibold text-foreground mb-4">{category}</h3>
+                <h3 className="font-semibold text-foreground mb-4">
+                  {category}
+                </h3>
                 <ul className="space-y-3">
                   {links.map((link) => (
                     <li key={link.name}>
@@ -132,4 +146,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
