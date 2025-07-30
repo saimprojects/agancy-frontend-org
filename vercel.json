@@ -1,4 +1,22 @@
 {
+  "redirects": [
+    {
+      "source": "http://growpeak.org",
+      "destination": "https://growpeak.org",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "growpeak.org.com"
+        }
+      ],
+      "destination": "https://www.growpeak.org/:1",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
